@@ -17,9 +17,6 @@ _start:
     sub al, '0'
     sub bl, '0'
     add al, bl
-    
-    ;mov ah, 0xA
-    ;add al, ah
 
     add al, '0'
 
