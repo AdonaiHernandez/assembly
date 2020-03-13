@@ -20,7 +20,8 @@ _start:
 
     add al, '0'
 
-    mov [sum], al
+    mov ah, 0xA
+    mov [sum], ax
 
     mov edx, 2
     mov ecx, sum
