@@ -1,0 +1,51 @@
+JMP start
+num1: DB "21"
+DB 0
+num2: DB "12"
+DB 0
+
+start:
+	MOV A, num1
+	CALL lenght
+	MOV A, 0
+	MOV B, num1
+	CALL parseNum1
+	MOV C, 0
+	PUSH A
+
+	MOV A, num2
+	CALL lenght
+	MOV A, 0
+	MOV B, num2
+	CALL parseNum1
+	MOV C, 0
+	PUSH A
+
+	POP A
+	POP B
+	ADD A, B
+
+	HLT
+
+parseNum1:
+	MOV D, [B]
+	SUB D, 0x30		
+	DEC C
+	ADD A, D
+	CMP C, 0
+	JNZ parseNum11
+	RET
+parseNum11:
+	MUL 10
+	INC B
+	JMP parseNum1
+
+lenght:
+	MOV B, [A]
+	CMP B, 0
+	JNZ length1
+	RET
+length1:
+	INC A
+	INC C
+	JMP lenght
