@@ -29,7 +29,7 @@ start:
 
 parseNum1:
 	MOV D, [B]	;Mueve el primer valor de B a D
-	SUB D, 0x30	;Lo comvierte en int, osea ahora es un char, los numeros empiezan en 0x30, (0x30 = 0, 0x31 = 1, ....)	
+	SUB D, 0x30	;Lo combierte en int, osea ahora es un char, los numeros empiezan en 0x30, (0x30 = 0, 0x31 = 1, ....)	
 	DEC C		;Decrementa el Contador del length, es lo que uso para ver si el numero termino
 	ADD A, D	;Suma A y D, porque en A esta el valor siguiente, al principio es 0 
 	CMP C, 0	;Pos eso, se comprara con 0 para saber si terminó
