@@ -1,5 +1,5 @@
 JMP start
-array: 	DB "3254861" ;"1234568"
+array: 	DB "2351376" ;"1233567"
        	DB 0
 min:	DB 0
 minPos:	DB 0
@@ -12,22 +12,29 @@ start:
 	JNZ inner
 	HLT
 inner:	
+	PUSH D
 	ADD D, C
 	ADD A, D
 	MOV B, [A]
 	CMP B, 0
 	JZ finishInner
 	SUB B, 0x30
+	PUSH A
 	CMP D, 0
 	JZ newMin
 	CMP B, [min]
 	JB newMin
+	MOV A, [min]
+	CMP A, 0xFF
+	JE newMin
 	JMP incrementar
 newMin:
 	MOV [min], B
 	MOV [minPos], A
 incrementar:
+	POP A
 	SUB A, D
+	POP D
 	INC D
 	JMP inner
 finishInner:
@@ -41,29 +48,27 @@ continueFinish:
 	CMP C, [len]
 	JE stop
 	
-	PUSH C
-	PUSH A
-	MOV A, array
+	MOV A, 232
 	ADD A, C
-	MOV D, A
-	MOV A, array
-	ADD A, [minPos]
-	
-	MOV A, array
-	ADD A, D
-	MOV B, [A]
-	MOV C, [min]
-	ADD C, 0x30
-	MOV [A], C
-
-	MOV A, array
-	ADD A, [minPos]
+	MOV B, [min]
 	ADD B, 0x30
 	MOV [A], B
-	POP A
+	PUSH C
+
+	MOV A, array
+	ADD A, C
+	MOV D, [A]
+	
+
+	MOV C, [minPos]
+	MOV [A], B
+	MOV [C], D
+	
 	POP C
+	MOV A, array
 	INC C
 	MOV D, 0
+	MOV [min], 0xFF
 	JMP inner
 stop:
 	HLT	
