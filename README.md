@@ -14,4 +14,4 @@ leer -> simplemente lee un caracter espera el retorno y lo pinta
 
 suma2.0 lo hice con este simulador https://schweigi.github.io/assembler-simulator/  osea para "compilar", simplemente pegarlo ahí, el resultado de la suma se almacena en A
 
-selectionSort -> Esta hecho con el mismo simulador que suma2.0, el problema es que si el "array" es largo, tarda fleje, pueden cambiar el html del selector del clock y ponerle un option con un value de 100 por ejemplo (es el factor multiplicador), se que se puede optimizar, pero me da pere, algún día lo haré xd.
+selectionSort -> Esta hecho con el mismo simulador que suma2.0, el problema es que si el "array" es largo, tarda fleje, pueden cambiar el html del selector del clock y ponerle un option con un value de 100 por ejemplo (es el factor multiplicador). Se que se puede optimizar, pero me da pere, algún día lo haré xd
