@@ -1,52 +1,69 @@
-JMP sort
-array: 	DB "3425269"
-	DB 0
-len: 	DB 0
-min: 	DB 0
-temp:	DB 0
- 
-sort:
-	MOV A, array
-	CALL getLength	
-	MOV [len], C
-	MOV C, 0
-	MOV A, array
-sortLoop:
-	MOV [min], C
-	MOV D, 0
-innerLoop:
-	MOV B, [A] + C
-	SUB B, 0x30
-	CMP B, [A] + D
-	JA saveContinue
-	JMP onlyContinue
-saveContinue:
-	MOV [min], D
-onlyContinue:
-	CMP D, [len]
-	JE continueSort
-	INC D
-	JMP innerLoop
-continueSort:
-	PUSH B
-	MOV B, [min]
-	MOV [temp], [A+B]
-	POP B
-	MOV [array] + [min], [A] + C
-	MOV [array] + [C], [temp]
-	INC C
-	CMP C, [len]
-	JE finish
-	JMP sortLoop
-finish:
-	HLT	
+JMP start
+array: 	DB "3254861" ;"1234568"
+       	DB 0
+min:	DB 0
+minPos:	DB 0
+len:	DB 0
 
-getLength:
+start:
+	MOV A, array
 	MOV B, [A]
 	CMP B, 0
-	JNZ continue
-	RET
-continue:
+	JNZ inner
+	HLT
+inner:	
+	ADD D, C
+	ADD A, D
+	MOV B, [A]
+	CMP B, 0
+	JZ finishInner
+	SUB B, 0x30
+	CMP D, 0
+	JZ newMin
+	CMP B, [min]
+	JB newMin
+	JMP incrementar
+newMin:
+	MOV [min], B
+	MOV [minPos], A
+incrementar:
+	SUB A, D
+	INC D
+	JMP inner
+finishInner:
+	MOV B, [len]
+	CMP B, 0
+	JZ setLen
+	JMP continueFinish
+setLen:
+	MOV [len], D
+continueFinish:
+	CMP C, [len]
+	JE stop
+	
+	PUSH C
+	PUSH A
+	MOV A, array
+	ADD A, C
+	MOV D, A
+	MOV A, array
+	ADD A, [minPos]
+	
+	MOV A, array
+	ADD A, D
+	MOV B, [A]
+	MOV C, [min]
+	ADD C, 0x30
+	MOV [A], C
+
+	MOV A, array
+	ADD A, [minPos]
+	ADD B, 0x30
+	MOV [A], B
+	POP A
+	POP C
 	INC C
-	INC A
-	JMP getLength
+	MOV D, 0
+	JMP inner
+stop:
+	HLT	
